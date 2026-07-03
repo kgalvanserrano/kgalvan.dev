@@ -1,0 +1,45 @@
+:root {
+  --color-bg: #17130f;
+  --color-text: #ece7de;
+  --color-text-dim: rgba(236, 231, 222, 0.6);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-accent: #7dc4e0;
+  --font-sans: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'SF Mono', Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+body {
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.05;
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
