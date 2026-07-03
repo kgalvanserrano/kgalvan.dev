@@ -1,0 +1,35 @@
+---
+title: "Yelp Open Dataset Challenge"
+summary: "A personal data-analytics project investigating whether college proximity skews restaurant ratings, using PySpark on Databricks and Tableau."
+dateRange: "01/2022 - 06/2022"
+order: 2
+externalLink:
+  label: "View Tableau Dashboard"
+  href: "https://public.tableau.com/"
+---
+
+## Problem
+
+Does being near a college campus change how a restaurant gets rated?
+Answering that at scale meant cleaning and joining two messy,
+independent datasets — Yelp reviews and college campus locations — across
+8 metro areas.
+
+## Approach
+
+- Processed 8.6M Yelp reviews and 160K business profiles across 8 metro
+  areas using PySpark on Databricks.
+- Implemented two-pass fuzzy matching using Levenshtein distance to
+  classify 49K+ restaurants as chain or independent, identifying and
+  correcting a 7.16% misclassification rate.
+- Computed geodesic distance pairings between 49K restaurants and 1,044
+  college campuses using geopy, filtering to 38K+ restaurants within 3.5
+  miles of a campus for the final analysis.
+
+## Outcome
+
+Built interactive Tableau dashboards — heatmaps, box plots — published
+to Tableau Public, presenting findings across all 8 metro areas for
+stakeholder review.
+
+**Stack:** PySpark, Spark SQL, Databricks, Tableau, geopy.

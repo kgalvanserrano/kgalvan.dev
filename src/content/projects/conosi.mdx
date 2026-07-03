@@ -1,0 +1,43 @@
+---
+title: "Conosi"
+summary: "A consumer EdTech platform taken solo from concept to App Store submission, with institutional backing from SJSU's College of Education and legal support from Harvard and USC law clinics."
+dateRange: "05/2025 - Present"
+order: 1
+externalLink:
+  label: "View on App Store"
+  href: "https://apps.apple.com/app/conosi"
+---
+
+## Problem
+
+Conosi needed a feed that stayed fast and relevant as its user base grew,
+a data layer that couldn't leak one university community's content into
+another's, and a release process that didn't depend on anyone but me.
+
+## Approach
+
+- Designed and shipped a custom feed-ranking algorithm — engagement
+  scoring, recency decay, follow multipliers, and fresh-post promotion —
+  over-fetching 3x candidates server-side and ranking down to a top-20
+  feed, keeping client payloads lean for fast scroll performance.
+- Optimized feed rendering and media handling with memoized post
+  components, session-level view caching, and on-device HEIC-to-JPEG
+  transcoding, cutting image payload sizes and keeping scroll performance
+  smooth on iOS.
+- Owned data security end-to-end: authored 79+ Row-Level Security
+  policies across 3 audit rounds, and enforced atomic server-side
+  operations to eliminate race conditions in high-frequency interactions
+  (likes, follows, DM creation).
+- Built real-time 1:1 messaging from scratch, including
+  deduplication-safe conversation creation under concurrent requests.
+- Implemented layered content moderation — client-side filtering plus
+  server-side validation — so no unsafe post reaches the database.
+
+## Outcome
+
+Built the full release pipeline solo: TypeScript strict mode, a
+173-test Jest suite, EAS production builds, TestFlight distribution, and
+App Store submission. Conosi is live today.
+
+**Stack:** React Native, Expo, TypeScript, Supabase (PostgreSQL, Row-Level
+Security), Jest, EAS Build.
