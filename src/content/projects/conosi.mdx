@@ -1,6 +1,6 @@
 ---
 title: "Conosi"
-summary: "A consumer EdTech platform taken solo from concept to App Store submission, with institutional backing from SJSU's College of Education and legal support from Harvard and USC law clinics."
+summary: "A social platform for teachers taken solo from concept to App Store submission, with institutional backing from SJSU's College of Education and legal support from Harvard and USC law clinics."
 dateRange: "05/2025 - Present"
 order: 1
 externalLink:
@@ -8,36 +8,113 @@ externalLink:
   href: "https://apps.apple.com/us/app/conosi/id6755718467"
 ---
 
-## Problem
+## Overview
 
-Conosi needed a feed that stayed fast and relevant as its user base grew,
-a data layer that couldn't leak one university community's content into
-another's, and a release process that didn't depend on anyone but me.
+Conosi is a social platform built for teachers: a space to share
+classroom moments, connect with other educators, build communities, and
+message directly, without the noise of a general-purpose social
+network. It carries institutional backing from San Jose State
+University's College of Education, with legal support from Harvard and
+USC law clinics. I'm the sole engineer: I own the mobile app, the
+backend schema, the security model, and the release pipeline, working
+alongside a small founding team handling product and growth.
 
-## Approach
+In the time since, that's meant taking a blank repository to a
+submitted App Store build with a real backend, real users' data, and
+the security posture that implies, as the only person who could catch a
+mistake before it shipped.
 
-- Designed and shipped a custom feed-ranking algorithm (engagement
-  scoring, recency decay, follow multipliers, and fresh-post promotion),
-  over-fetching 3x candidates server-side and ranking down to a top-20
-  feed, keeping client payloads lean for fast scroll performance.
-- Optimized feed rendering and media handling with memoized post
-  components, session-level view caching, and on-device HEIC-to-JPEG
-  transcoding, cutting image payload sizes and keeping scroll performance
-  smooth on iOS.
-- Owned data security end-to-end: authored 79+ Row-Level Security
-  policies across 3 audit rounds, and enforced atomic server-side
-  operations to eliminate race conditions in high-frequency interactions
-  (likes, follows, DM creation).
-- Built real-time 1:1 messaging from scratch, including
-  deduplication-safe conversation creation under concurrent requests.
-- Implemented layered content moderation (client-side filtering plus
-  server-side validation), so no unsafe post reaches the database.
+## What I built
 
-## Outcome
+- **111 screens** across a file-based router (Expo Router), covering
+  auth, profile, a social feed, direct and community messaging,
+  notifications, and moderation tooling
+- A **PostgreSQL schema on Supabase** with row-level security as the
+  access-control layer everywhere: no ORM, no server-side authorization
+  logic duplicated in application code
+- **Real-time messaging**: direct and community conversations over
+  WebSocket subscriptions with optimistic UI
+- **Push notifications end-to-end**: device token registration, Expo
+  Push API integration, foreground/background handling, and
+  DB-triggered notifications for likes, comments, and follows
+- A **feed with infinite scroll**, image carousels, and custom video
+  playback, using optimistic state reconciliation so likes/bookmarks/
+  comments feel instant and roll back cleanly on failure
+- **Role-based community moderation**: bans, warnings, reports, and
+  membership approval, enforced at the database layer, not just hidden
+  in the UI
+- The **full release pipeline**: EAS Build, TestFlight distribution,
+  crash triage via Sentry, and environment/config management across 337
+  commits and 61 sequential schema migrations
 
-Built the full release pipeline solo: TypeScript strict mode, a
-173-test Jest suite, EAS production builds, TestFlight distribution, and
-App Store submission. Conosi is live today.
+## Deep dive: making messaging both instant and correct
 
-**Stack:** React Native, Expo, TypeScript, Supabase (PostgreSQL, Row-Level
-Security), Jest, EAS Build.
+The messaging feature is the part of Conosi that looks simplest from
+the outside and was the hardest to get right underneath.
+
+The easy 80% is what you'd expect: a `messages` table, a Realtime
+subscription per open conversation, and optimistic local inserts so a
+sent message appears instantly instead of waiting on a round-trip. That
+part shipped early and mostly stayed put.
+
+The harder problem was **starting** a conversation. Two users can tap
+"Message" on each other's profile at nearly the same moment, or one
+user can double-tap before the first request resolves. A naive "find a
+conversation between these two users, else create one" approach has a
+race: two concurrent requests can each fail to find an existing
+conversation and each create one, leaving a user with two duplicate DMs
+to the same person and no clean way to reconcile them client-side.
+
+I moved that logic entirely into a `SECURITY DEFINER` Postgres RPC,
+`find_or_create_conversation`, and closed the race with
+`pg_advisory_xact_lock`: taking a transaction-scoped advisory lock
+keyed on a hash of the two user IDs (sorted, so the pairing is
+order-independent) before the find-or-create check. That serializes
+concurrent attempts to open a conversation between the *same two
+people* without taking a lock on anything else, so unrelated
+conversations aren't affected.
+
+That RPC also went through a second hardening pass later: an early
+version trusted the client-supplied user IDs enough that a malicious
+client could call it directly and get inserted into an arbitrary
+conversation it shouldn't have had access to, a classic IDOR. I caught
+it in a self-run security audit, added an authorization check inside
+the function itself (verifying the calling user is actually one of the
+two parties, using `auth.uid()` server-side rather than trusting the
+argument), and revoked the overly-broad grants that had made the
+direct RPC call reachable in the first place. The fix, the regression
+it would have re-opened, and the revoke are now standing conventions
+for me: any find-or-create pattern in this codebase uses an advisory
+lock, and any `SECURITY DEFINER` RPC is treated as public API surface,
+not internal implementation, meaning its authorization has to hold up
+even if called directly, not just from the code path I originally wrote
+it for.
+
+That's the pattern I try to bring to every feature here: ship the
+version that feels good to the user, then go back and ask what a
+concurrent or adversarial client would do to it.
+
+## Owning it end to end
+
+Working solo on a production app with real user data meant there was
+no one else to catch a bad migration or a missed authorization check
+before it reached the App Store review team or a real teacher's
+account. That pushed me toward habits I'd otherwise have learned from a
+team: writing every schema change as a numbered, idempotent migration
+file instead of dashboard clicks; re-running security passes against my
+own schema rather than assuming code review would happen eventually;
+and treating `npx tsc --noEmit`, lint, and the Jest suite as a gate I
+run before every push, not a CI afterthought.
+
+## What this proves
+
+Conosi is the reason I'm comfortable with ambiguity in a codebase:
+deciding the architecture, finding my own bugs, and being the last line
+of defense before something ships to real users. Going into a team
+environment, I'm looking forward to trading that isolation for code
+review, design discussion, and someone else's eyes on the hard
+problems, while keeping the instinct to ask "what happens if two
+requests hit this at once" before I ship.
+
+**Stack:** React Native, Expo (SDK 54), TypeScript, Supabase
+(PostgreSQL, Row-Level Security), Sentry, Jest, EAS Build.
