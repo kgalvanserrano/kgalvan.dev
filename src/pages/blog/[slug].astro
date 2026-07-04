@@ -1,0 +1,47 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} — Kevin Galvan`} description={post.data.description}>
+  <Nav />
+  <article class="post">
+    <h1>{post.data.title}</h1>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .post {
+    padding: 70px 48px;
+    max-width: 760px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0 0 30px 0;
+  }
+
+  .prose {
+    opacity: 0.85;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+</style>

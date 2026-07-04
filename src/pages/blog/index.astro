@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getSortedPosts } from '../../lib/blog';
+
+const allPosts = await getCollection('blog');
+const posts = getSortedPosts(allPosts);
+---
+
+<BaseLayout title="Blog — Kevin Galvan" description="Writing on engineering, data, and building solo.">
+  <Nav />
+  <section class="section">
+    <div class="eyebrow">WRITING</div>
+    <h1>Blog</h1>
+    {
+      posts.length === 0 ? (
+        <p class="empty">Nothing published yet — check back soon.</p>
+      ) : (
+        <div class="posts">
+          {posts.map((post) => (
+            <a class="post" href={`/blog/${post.id}`}>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .section {
+    padding: 70px 48px;
+    max-width: 760px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0 0 30px 0;
+  }
+
+  .empty {
+    opacity: 0.6;
+    font-size: 14px;
+  }
+
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .post {
+    text-decoration: none;
+    display: block;
+  }
+
+  .post h3 {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    color: var(--color-text);
+  }
+
+  .post p {
+    margin: 0;
+    opacity: 0.6;
+    font-size: 13.5px;
+  }
+</style>

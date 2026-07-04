@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Not Found — Kevin Galvan" description="Page not found.">
+  <Nav />
+  <section class="section">
+    <div class="eyebrow">404</div>
+    <h1>Nothing here.</h1>
+    <p>
+      <a href="/">Back to the homepage →</a>
+    </p>
+  </section>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .section {
+    padding: 120px 48px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+</style>
