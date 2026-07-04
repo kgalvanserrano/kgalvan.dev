@@ -16,7 +16,7 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 ---
 
-<BaseLayout title={`${project.data.title} — Kevin Galvan`} description={project.data.summary}>
+<BaseLayout title={`${project.data.title} - Kevin Galvan`} description={project.data.summary}>
   <Nav />
   <article class="case-study">
     <div class="meta">{project.data.dateRange}</div>
