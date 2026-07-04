@@ -1,0 +1,87 @@
+---
+import { experienceEntries } from '../data/experience';
+---
+
+<section class="section" id="experience">
+  <div class="eyebrow">CAREER</div>
+  <h2>Experience</h2>
+  <div class="timeline">
+    {
+      experienceEntries.map((entry) => (
+        <div class="item">
+          <div class="date">{entry.dateRange}</div>
+          <div class="body">
+            <h3>
+              {entry.role}, {entry.org}
+            </h3>
+            <p>{entry.summary}</p>
+            {entry.caseStudyHref && <a href={entry.caseStudyHref}>Read the case study →</a>}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: 60px 48px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 26px 0;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item {
+    display: flex;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .item:last-child {
+    border-bottom: none;
+  }
+
+  .date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-accent);
+    width: 130px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .body h3 {
+    margin: 0 0 4px 0;
+    font-size: 15.5px;
+  }
+
+  .body p {
+    margin: 0 0 6px 0;
+    opacity: 0.6;
+    font-size: 13px;
+  }
+
+  .body a {
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--color-accent);
+  }
+</style>
