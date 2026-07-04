@@ -1,0 +1,63 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  externalLink?: { label: string; href: string };
+}
+
+const { title, summary, href, externalLink } = Astro.props;
+---
+
+<div class="card">
+  <a class="main" href={href}>
+    <h3>{title}</h3>
+    <p>{summary}</p>
+  </a>
+  {
+    externalLink && (
+      <a class="external" href={externalLink.href} target="_blank" rel="noopener noreferrer">
+        {externalLink.label} ↗
+      </a>
+    )
+  }
+</div>
+
+<style>
+  .card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 26px 30px;
+    transition: border-color 0.15s;
+  }
+
+  .card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .main {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    margin: 0 0 6px 0;
+    font-size: 19px;
+    color: var(--color-text);
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.6;
+    font-size: 13.5px;
+    max-width: 480px;
+  }
+
+  .external {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+</style>
