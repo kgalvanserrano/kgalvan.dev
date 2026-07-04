@@ -60,4 +60,10 @@ const { title, summary, href, externalLink } = Astro.props;
     color: var(--color-accent);
     text-decoration: none;
   }
+
+  @media (max-width: 480px) {
+    .card {
+      padding: 20px 20px;
+    }
+  }
 </style>

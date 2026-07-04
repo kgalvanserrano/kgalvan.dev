@@ -44,4 +44,20 @@ const { Content } = await render(post);
     line-height: 1.7;
     font-size: 15px;
   }
+
+  @media (max-width: 768px) {
+    .post {
+      padding: 50px 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .post {
+      padding: 40px 16px;
+    }
+
+    h1 {
+      font-size: 26px;
+    }
+  }
 </style>

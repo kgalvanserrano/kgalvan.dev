@@ -47,4 +47,16 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     flex-direction: column;
     gap: 18px;
   }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 44px 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section {
+      padding: 36px 16px;
+    }
+  }
 </style>

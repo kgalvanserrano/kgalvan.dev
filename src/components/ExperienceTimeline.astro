@@ -84,4 +84,25 @@ import { experienceEntries } from '../data/experience';
     text-decoration: none;
     color: var(--color-accent);
   }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 44px 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section {
+      padding: 36px 16px;
+    }
+
+    .item {
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .date {
+      width: auto;
+    }
+  }
 </style>
