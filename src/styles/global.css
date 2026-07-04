@@ -3,6 +3,7 @@
   --color-text: #ece7de;
   --color-text-dim: rgba(236, 231, 222, 0.6);
   --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.2);
   --color-accent: #7dc4e0;
   --font-sans: -apple-system, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'SF Mono', Menlo, monospace;
