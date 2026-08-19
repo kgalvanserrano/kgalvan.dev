@@ -1,0 +1,77 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+const { stats } = Astro.props;
+---
+
+<div class="stats-grid">
+  {
+    stats.map((stat) => (
+      <div class="stat">
+        <div class="value">{stat.value}</div>
+        <div class="label">{stat.label}</div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border: 1px solid var(--color-border-strong);
+    margin: 40px 0;
+  }
+
+  .stat {
+    padding: 20px 16px;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .stat:last-child {
+    border-right: none;
+  }
+
+  .value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--color-accent-2);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat {
+      border-right: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .stat:nth-child(2n) {
+      border-right: none;
+    }
+
+    .stat:nth-last-child(-n + 2) {
+      border-bottom: none;
+    }
+  }
+</style>

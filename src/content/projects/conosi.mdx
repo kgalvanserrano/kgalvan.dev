@@ -8,6 +8,8 @@ externalLink:
   href: "https://apps.apple.com/us/app/conosi/id6755718467"
 ---
 
+import StatsGrid from '../../components/StatsGrid.astro';
+
 ## Overview
 
 Conosi is a social platform built for teachers: a space to share
@@ -24,13 +26,22 @@ submitted App Store build with a real backend, real users' data, and
 the security posture that implies, as the only person who could catch a
 mistake before it shipped.
 
+<StatsGrid stats={[
+  { value: '111', label: 'Screens' },
+  { value: '61', label: 'Migrations' },
+  { value: '337', label: 'Commits' },
+  { value: '79+', label: 'RLS Policies' },
+  { value: '173', label: 'Tests' },
+]} />
+
 ## What I built
 
 - **111 screens** across a file-based router (Expo Router), covering
   auth, profile, a social feed, direct and community messaging,
   notifications, and moderation tooling
 - A **PostgreSQL schema on Supabase** with row-level security as the
-  access-control layer everywhere: no ORM, no server-side authorization
+  access-control layer everywhere: 79+ RLS policies validated across
+  three security audit passes, no ORM, no server-side authorization
   logic duplicated in application code
 - **Real-time messaging**: direct and community conversations over
   WebSocket subscriptions with optimistic UI
@@ -103,8 +114,8 @@ account. That pushed me toward habits I'd otherwise have learned from a
 team: writing every schema change as a numbered, idempotent migration
 file instead of dashboard clicks; re-running security passes against my
 own schema rather than assuming code review would happen eventually;
-and treating `npx tsc --noEmit`, lint, and the Jest suite as a gate I
-run before every push, not a CI afterthought.
+and treating `npx tsc --noEmit`, lint, and a 173-test Jest suite as a
+gate I run before every push, not a CI afterthought.
 
 ## What this proves
 
