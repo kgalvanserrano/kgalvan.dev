@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-700.woff2') format('woff2');
+}
+
 :root {
   --color-bg: #1a1917;
   --color-text: #ece7de;
@@ -5,8 +21,10 @@
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.2);
   --color-accent: #7dc4e0;
+  --color-accent-2: #d99a66;
   --font-sans: -apple-system, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'SF Mono', Menlo, monospace;
+  --font-display: 'Space Grotesk', var(--font-sans);
 }
 
 * {
@@ -20,21 +38,6 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
-}
-
-body {
-  position: relative;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  opacity: 0.05;
-  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
-  background-size: 3px 3px;
-  pointer-events: none;
-  z-index: 0;
 }
 
 a {

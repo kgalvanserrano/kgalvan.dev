@@ -3,8 +3,7 @@ import { experienceEntries } from '../data/experience';
 ---
 
 <section class="section" id="experience">
-  <div class="eyebrow">CAREER</div>
-  <h2>Experience</h2>
+  <h2 class="index-header"><span class="num">002</span> - Experience</h2>
   <div class="timeline">
     {
       experienceEntries.map((entry) => (
@@ -15,7 +14,7 @@ import { experienceEntries } from '../data/experience';
               {entry.role}, {entry.org}
             </h3>
             <p>{entry.summary}</p>
-            {entry.caseStudyHref && <a href={entry.caseStudyHref}>Read the case study →</a>}
+            {entry.caseStudyHref && <a href={entry.caseStudyHref}>Read the case study -&gt;</a>}
           </div>
         </div>
       ))
@@ -29,18 +28,19 @@ import { experienceEntries } from '../data/experience';
     border-top: 1px solid var(--color-border);
   }
 
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--color-accent);
-    letter-spacing: 0.08em;
-    margin-bottom: 10px;
+  .index-header {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 26px 0;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--color-border-strong);
   }
 
-  h2 {
-    font-size: 26px;
-    font-weight: 800;
-    margin: 0 0 26px 0;
+  .index-header .num {
+    color: var(--color-accent-2);
   }
 
   .timeline {
@@ -50,8 +50,7 @@ import { experienceEntries } from '../data/experience';
 
   .item {
     display: flex;
-    gap: 24px;
-    padding: 16px 0;
+    padding: 18px 0;
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -62,25 +61,29 @@ import { experienceEntries } from '../data/experience';
   .date {
     font-family: var(--font-mono);
     font-size: 12px;
-    color: var(--color-accent);
-    width: 130px;
+    color: var(--color-accent-2);
+    width: 140px;
     flex-shrink: 0;
-    padding-top: 2px;
+    padding: 2px 20px 0 0;
+    margin-right: 20px;
+    border-right: 1px solid var(--color-border);
   }
 
   .body h3 {
+    font-family: var(--font-mono);
     margin: 0 0 4px 0;
-    font-size: 15.5px;
+    font-size: 14.5px;
   }
 
   .body p {
     margin: 0 0 6px 0;
-    opacity: 0.6;
+    color: var(--color-text-dim);
     font-size: 13px;
   }
 
   .body a {
-    font-size: 13px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
     text-decoration: none;
     color: var(--color-accent);
   }
@@ -103,6 +106,10 @@ import { experienceEntries } from '../data/experience';
 
     .date {
       width: auto;
+      margin-right: 0;
+      padding: 0 0 8px 0;
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
     }
   }
 </style>

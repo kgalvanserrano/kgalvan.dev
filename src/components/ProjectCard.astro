@@ -17,7 +17,7 @@ const { title, summary, href, externalLink } = Astro.props;
   {
     externalLink && (
       <a class="external" href={externalLink.href} target="_blank" rel="noopener noreferrer">
-        {externalLink.label} ↗
+        {externalLink.label} [ext]
       </a>
     )
   }
@@ -25,14 +25,13 @@ const { title, summary, href, externalLink } = Astro.props;
 
 <style>
   .card {
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    padding: 26px 30px;
-    transition: border-color 0.15s;
+    border: 1px solid var(--color-border-strong);
+    padding: 24px 28px;
+    transition: background-color 0.15s;
   }
 
   .card:hover {
-    border-color: var(--color-accent);
+    background: var(--color-accent);
   }
 
   .main {
@@ -42,14 +41,15 @@ const { title, summary, href, externalLink } = Astro.props;
   }
 
   h3 {
+    font-family: var(--font-mono);
     margin: 0 0 6px 0;
-    font-size: 19px;
+    font-size: 17px;
     color: var(--color-text);
   }
 
   p {
     margin: 0;
-    opacity: 0.6;
+    color: var(--color-text-dim);
     font-size: 13.5px;
     max-width: 480px;
   }
@@ -59,6 +59,12 @@ const { title, summary, href, externalLink } = Astro.props;
     font-size: 12px;
     color: var(--color-accent);
     text-decoration: none;
+  }
+
+  .card:hover h3,
+  .card:hover p,
+  .card:hover .external {
+    color: var(--color-bg);
   }
 
   @media (max-width: 480px) {

@@ -14,8 +14,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
-    opacity: 0.6;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
   }
 
   .links {
@@ -25,6 +28,21 @@
 
   .links a {
     text-decoration: none;
+    color: var(--color-text-dim);
+  }
+
+  .links a:hover {
+    color: var(--color-accent);
+  }
+
+  .links a::before {
+    content: '[';
+    opacity: 0.4;
+  }
+
+  .links a::after {
+    content: ']';
+    opacity: 0.4;
   }
 
   @media (max-width: 480px) {

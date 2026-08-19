@@ -24,22 +24,44 @@
   }
 
   .logo {
-    font-weight: 800;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.02em;
     text-decoration: none;
+    border: 1px solid var(--color-border-strong);
+    padding: 5px 10px;
+  }
+
+  .logo:hover {
+    border-color: var(--color-accent);
   }
 
   .links {
     display: flex;
-    gap: 28px;
-    font-size: 13px;
-    letter-spacing: 0.04em;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
-    opacity: 0.7;
   }
 
   .links a {
     text-decoration: none;
+    opacity: 0.7;
+  }
+
+  .links a:hover {
+    opacity: 1;
+  }
+
+  .links a:not(:last-child) {
+    margin-right: 22px;
+  }
+
+  .links a:not(:last-child)::after {
+    content: '·';
+    margin-left: 22px;
+    opacity: 0.35;
   }
 
   @media (max-width: 768px) {
@@ -54,8 +76,15 @@
     }
 
     .links {
-      gap: 14px;
-      font-size: 11px;
+      font-size: 10px;
+    }
+
+    .links a:not(:last-child) {
+      margin-right: 12px;
+    }
+
+    .links a:not(:last-child)::after {
+      margin-left: 12px;
     }
   }
 </style>

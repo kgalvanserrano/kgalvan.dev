@@ -1,15 +1,16 @@
 <section class="hero">
-  <div class="kicker">SOFTWARE ENGINEER, SAN JOSE, CA</div>
-  <div class="rule"></div>
-  <h1>Full-stack, by necessity<br />and by <span class="accent">choice</span>.</h1>
-  <p class="lede">
-    Kevin Galvan. Solo founder work means every layer is your problem:
-    mobile, backend, data. I've stayed there on purpose. Currently
-    building at Conosi.
-  </p>
+  <div class="index"><span class="num">001</span> - Software Engineer / San Jose, CA</div>
+  <h1>Full-stack. Shipped <span class="accent">solo</span>.</h1>
+  <div class="lede-box">
+    <p class="lede">
+      <span class="prompt">&gt;</span> Kevin Galvan. Full-time software engineer working across the stack.
+      I also independently built and still own Conosi, an app I took solo
+      from an empty repo to the App Store.
+    </p>
+  </div>
   <div class="cta-row">
-    <a class="btn primary" href="/#projects">View Projects</a>
-    <a class="btn ghost" href="/resume.pdf" download>Download Résumé</a>
+    <a class="btn" href="/#projects">View Projects</a>
+    <a class="btn" href="/resume.pdf" download>Download Résumé</a>
   </div>
 </section>
 
@@ -18,40 +19,54 @@
     padding: 90px 48px 60px 48px;
   }
 
-  .kicker {
-    font-family: var(--font-mono);
+  .index {
+    font-family: var(--font-display);
+    font-weight: 500;
     font-size: 12px;
+    letter-spacing: 0.04em;
     color: var(--color-accent);
-    letter-spacing: 0.08em;
-    margin-bottom: 18px;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  .rule {
-    width: 46px;
-    height: 3px;
-    background: var(--color-accent);
-    margin-bottom: 20px;
+  .index .num {
+    color: var(--color-accent-2);
   }
 
   h1 {
-    font-size: 52px;
-    font-weight: 800;
-    line-height: 1.06;
-    letter-spacing: -0.015em;
-    margin: 0 0 20px 0;
-    max-width: 700px;
+    font-family: var(--font-display);
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 0 0 24px 0;
+    max-width: 720px;
   }
 
   .accent {
     color: var(--color-accent);
   }
 
-  .lede {
-    font-size: 17px;
-    color: var(--color-text-dim);
-    max-width: 480px;
-    line-height: 1.55;
+  .lede-box {
+    border: 1px solid var(--color-border);
+    padding: 20px 24px;
+    max-width: 560px;
     margin-bottom: 34px;
+  }
+
+  .lede {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-text-dim);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .prompt {
+    color: var(--color-accent-2);
+    margin-right: 6px;
   }
 
   .cta-row {
@@ -60,22 +75,34 @@
   }
 
   .btn {
-    font-size: 13px;
+    font-family: var(--font-mono);
+    font-size: 12px;
     letter-spacing: 0.03em;
-    padding: 12px 22px;
-    border-radius: 6px;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    border: 1px solid var(--color-border-strong);
     text-decoration: none;
     font-weight: 600;
+    transition:
+      background-color 0.15s,
+      color 0.15s,
+      border-color 0.15s;
   }
 
-  .btn.primary {
+  .btn::before {
+    content: '[ ';
+    opacity: 0.5;
+  }
+
+  .btn::after {
+    content: ' ]';
+    opacity: 0.5;
+  }
+
+  .btn:hover {
     background: var(--color-accent);
     color: var(--color-bg);
-  }
-
-  .btn.ghost {
-    border: 1px solid var(--color-border-strong);
-    color: var(--color-text);
+    border-color: var(--color-accent);
   }
 
   @media (max-width: 768px) {
@@ -84,7 +111,7 @@
     }
 
     h1 {
-      font-size: 38px;
+      font-size: 34px;
     }
   }
 
@@ -94,11 +121,11 @@
     }
 
     h1 {
-      font-size: 30px;
+      font-size: 26px;
     }
 
     .lede {
-      font-size: 15px;
+      font-size: 13px;
     }
 
     .cta-row {
